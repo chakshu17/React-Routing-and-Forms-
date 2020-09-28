@@ -1,4 +1,4 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, FieldArray, Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 import TextError from "./TextError";
@@ -12,7 +12,8 @@ const initialValues = {
 		facebook: "",
 		twitter: "",
 	},
-	phoneNumbers:['','']
+	phoneNumbers: ["", ""],
+	phNumbers: [""],
 };
 const onSubmit = (value) => {
 	console.log("Form Data", value);
@@ -64,7 +65,7 @@ function YoutubeForm() {
 						{(props) => {
 							// const { field, form, meta } = props;
 							const { field, meta } = props;
-							console.log("Render Props", props);
+							// console.log("Render Props", props);
 							return (
 								<div>
 									<input type="text" id="address" {...field} />
@@ -91,12 +92,41 @@ function YoutubeForm() {
 					<label htmlFor="primaryPh">Primary Phone Number</label>
 					<Field type="text" id="primaryPh" name="phoneNumbers[0]" />
 				</div>
-				
+
 				<div className="form-control">
 					<label htmlFor="secondaryPh">Secondary Phone Number</label>
 					<Field type="text" id="secondaryPh" name="phoneNumbers[1]" />
 				</div>
 
+				<div className="form-control">
+					<label htmlFor="">List of Phone Numebrs</label>
+					<FieldArray name="phNumbers">
+						{(fieldArrayProps) => {
+							console.log("Field Array Logs", fieldArrayProps);
+							const { push, remove, form } = fieldArrayProps;
+							const { values } = form;
+							const { phNumbers } = values;
+							return (
+								<div>
+									{phNumbers.map((phNumber, index) => (
+										<div key={index}>
+											<Field name={`phNumbers[${index}]`} />
+											{index > 0 && (
+												<button type="button" onClick={() => remove(index)}>
+													-
+												</button>
+											)}
+
+											<button type="button" onClick={() => push("")}>
+												+
+											</button>
+										</div>
+									))}
+								</div>
+							);
+						}}
+					</FieldArray>
+				</div>
 
 				<button type="submit">Submit</button>
 			</Form>
