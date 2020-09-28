@@ -8,6 +8,10 @@ const initialValues = {
 	channel: "",
 	comments: "",
 	address: "",
+	social: {
+		facebook: "",
+		twitter: "",
+	},
 };
 const onSubmit = (value) => {
 	console.log("Form Data", value);
@@ -38,15 +42,9 @@ function YoutubeForm() {
 				<div className="form-control">
 					<label htmlFor="email">E-mail</label>
 					<Field type="email" id="email" name="email" />
-					<ErrorMessage name="email" >
-						{
-							(errorMsg)=>
-								<div className="error">
-									{errorMsg}
-								</div>
-							
-						} 
-						</ErrorMessage>
+					<ErrorMessage name="email">
+						{(errorMsg) => <div className="error">{errorMsg}</div>}
+					</ErrorMessage>
 				</div>
 
 				<div className="form-control">
@@ -68,7 +66,7 @@ function YoutubeForm() {
 							console.log("Render Props", props);
 							return (
 								<div>
-									<input type='text' id="address" {...field} />
+									<input type="text" id="address" {...field} />
 									{meta.touched && meta.error ? (
 										<div> {meta.error} </div>
 									) : null}
@@ -77,6 +75,17 @@ function YoutubeForm() {
 						}}
 					</Field>
 				</div>
+
+				<div className="form-control">
+					<label htmlFor="facebook">Facebook Profile</label>
+					<Field type="text" id="facebook" name="social.facebook" />
+				</div>
+
+				<div className="form-control">
+					<label htmlFor="twitter">Twitter Profile</label>
+					<Field type="text" id="twitter" name="social.twitter" />
+				</div>
+
 				<button type="submit">Submit</button>
 			</Form>
 		</Formik>
