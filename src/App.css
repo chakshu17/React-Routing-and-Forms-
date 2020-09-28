@@ -19,5 +19,12 @@ input[type="email"] {
   background-color: white;
   border: 1px solid black;
   border-radius: 4px;
+  /* margin-bottom: 20px; */
+}
+.forn-control{
   margin-bottom: 20px;
+}
+
+.error{
+  color: red;
 }
