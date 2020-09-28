@@ -58,7 +58,7 @@ function OldYoutubeForm() {
 					{ formik.touched.name && formik.errors.name ? (
 						<div className="error"> {formik.errors.name} </div>
 					) : null} 
-          {/* // blur handle info whether field is touched or not */}
+       
 				</div>
 
 				<div className="form-control">
@@ -67,10 +67,11 @@ function OldYoutubeForm() {
 						type="email"
 						id="email"
 						name="email"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-						value={formik.values.email}
+						{...formik.getFieldProps('channel')}
 					/>
+					{/* // blur handle info whether field is touched or not 
+          boilerPlate code  {...formik.getFieldProps('name')}
+          */}
 					{ formik.touched.email && formik.errors.email ? (
 						<div className="error"> {formik.errors.email} </div>
 					) : null}
