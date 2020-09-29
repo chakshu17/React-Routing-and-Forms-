@@ -6,9 +6,10 @@ import {
 	Form,
 	Formik,
 } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
 import TextError from "./TextError";
+
 const initialValues = {
 	name: "Chakshu",
 	email: "",
@@ -22,10 +23,24 @@ const initialValues = {
 	phoneNumbers: ["", ""],
 	phNumbers: [""],
 };
-const onSubmit = (value,onSubmitProps) => {
+
+const savedValues = {
+	name: "Chakshu",
+	email: "demon@gna.com",
+	channel: "Kratos",
+	comments: "sdfghjk",
+	address: "221B bakers Street",
+	social: {
+		facebook: "",
+		twitter: "",
+	},
+	phoneNumbers: ["", ""],
+	phNumbers: [""],
+};
+const onSubmit = (value, onSubmitProps) => {
 	console.log("Form Data", value);
-	console.log('submit props',onSubmitProps);
-	onSubmitProps.setSubmitting(false)
+	console.log("submit props", onSubmitProps);
+	onSubmitProps.setSubmitting(false);
 };
 
 // const validateComments = (values) => {
@@ -46,11 +61,13 @@ const validationSchema = Yup.object({
 function YoutubeForm() {
 	// console.log("visited fields ", formik.touched);
 	// console.log('From values:',formik.values);
+	const [formvalues, setFormValues] = useState(null);
 	return (
 		<Formik
-			initialValues={initialValues}
+			initialValues={formvalues || initialValues}
 			validationSchema={validationSchema}
 			onSubmit={onSubmit}
+			enableReinitialize
 			// validateOnMount
 		>
 			{(formik) => {
@@ -79,12 +96,7 @@ function YoutubeForm() {
 
 						<div className="form-control">
 							<label htmlFor="comments">Comments</label>
-							<Field
-								as="textarea"
-								id="comment"
-								name="comments"
-						
-							/>
+							<Field as="textarea" id="comment" name="comments" />
 							<ErrorMessage name="comments" component={TextError} />
 						</div>
 
@@ -160,7 +172,7 @@ function YoutubeForm() {
 							</FieldArray>
 						</div>
 
-						<button
+						{/* <button
 							type="button"
 							onClick={() => formik.validateField("comments")}
 						>
@@ -173,20 +185,33 @@ function YoutubeForm() {
 							type="button"
 							onClick={() => formik.setFieldTouched("comments")}
 						>
-						Set Field touched
+							Set Field touched
 						</button>
-						<button type="button" onClick={() => formik.setTouched({
-							name:true,
-							email:true,
-							channel:true,
-							comments:true,
-						})}>
-							Visit  Comments
-						</button>
+						<button
+							type="button"
+							onClick={() =>
+								formik.setTouched({
+									name: true,
+									email: true,
+									channel: true,
+									comments: true,
+								})
+							}
+						>
+							Visit Comments
+						</button> */}
 						{/*	<button type="submit" disabled={!(formik.isValid )} >Submit</button>
 				 use dirty when you know that user will enter value wich is never same as before , or else dirty prop will be problematic
 					It will disable the submit button when data is not new */}
-					<button type="submit" disabled={ !formik.isValid || formik.isSubmitting} >Submit</button>
+						<button type="text" onClick={() => setFormValues(savedValues)}>
+							Load Saved Data
+						</button>
+						<button
+							type="submit"
+							disabled={!formik.isValid || formik.isSubmitting}
+						>
+							Submit
+						</button>
 					</Form>
 				);
 			}}
