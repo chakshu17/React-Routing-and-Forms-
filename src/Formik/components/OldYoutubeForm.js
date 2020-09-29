@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import React from "react";
-import * as Yup from 'yup'
+import * as Yup from "yup";
 const initialValues = {
 	name: "Chakshu",
 	email: "",
@@ -28,17 +28,19 @@ const onSubmit = (value) => {
 // };
 
 const validationSchema = Yup.object({
-  name: Yup.string().required('Required !'),
-  email: Yup.string().email('Invalid Email').required('Required !'),
-  channel:Yup.string().required('Required !')
-})
+	name: Yup.string().required("Required !"),
+	email: Yup.string().email("Invalid Email").required("Required !"),
+	channel: Yup.string().required("Required !"),
+	
+});
+
 
 function OldYoutubeForm() {
 	const formik = useFormik({
 		initialValues,
-    onSubmit,
-    validationSchema
-		//,
+		onSubmit,
+		validationSchema,
+		//validate,
 	});
 	console.log("visited fields ", formik.touched);
 	// console.log('From values:',formik.values);
@@ -51,14 +53,13 @@ function OldYoutubeForm() {
 						type="text"
 						id="name"
 						name="name"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
 						value={formik.values.name}
 					/>
-					{ formik.touched.name && formik.errors.name ? (
+					{formik.touched.name && formik.errors.name ? (
 						<div className="error"> {formik.errors.name} </div>
-					) : null} 
-       
+					) : null}
 				</div>
 
 				<div className="form-control">
@@ -67,12 +68,12 @@ function OldYoutubeForm() {
 						type="email"
 						id="email"
 						name="email"
-						{...formik.getFieldProps('channel')}
+						{...formik.getFieldProps("channel")}
 					/>
 					{/* // blur handle info whether field is touched or not 
           boilerPlate code  {...formik.getFieldProps('name')}
           */}
-					{ formik.touched.email && formik.errors.email ? (
+					{formik.touched.email && formik.errors.email ? (
 						<div className="error"> {formik.errors.email} </div>
 					) : null}
 				</div>
@@ -83,8 +84,8 @@ function OldYoutubeForm() {
 						type="text"
 						id="channel"
 						name="channel"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
 						value={formik.values.channel}
 					/>
 					{formik.touched.channel && formik.errors.channel ? (

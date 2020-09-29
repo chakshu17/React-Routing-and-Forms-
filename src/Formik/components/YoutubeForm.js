@@ -1,4 +1,11 @@
-import { ErrorMessage, FastField, Field, FieldArray, Form, Formik } from "formik";
+import {
+	ErrorMessage,
+	FastField,
+	Field,
+	FieldArray,
+	Form,
+	Formik,
+} from "formik";
 import React from "react";
 import * as Yup from "yup";
 import TextError from "./TextError";
@@ -19,10 +26,19 @@ const onSubmit = (value) => {
 	console.log("Form Data", value);
 };
 
+const validateComments = (values) => {
+	let error;
+	if (!error) {
+		error = "Required";
+	}
+	return error;
+};
+
 const validationSchema = Yup.object({
 	name: Yup.string().required("Required !"),
 	email: Yup.string().email("Invalid Email").required("Required !"),
 	channel: Yup.string().required("Required !"),
+	comments: Yup.string().required("Required"),
 });
 
 function YoutubeForm() {
@@ -57,13 +73,20 @@ function YoutubeForm() {
 
 				<div className="form-control">
 					<label htmlFor="comments">Comments</label>
-					<Field as="textarea" id="comment" name="comments" />
+					<Field
+						as="textarea"
+						id="comment"
+						name="comments"
+						validate={validateComments}
+					/>
+					<ErrorMessage  name='comments' component={TextError} />
 				</div>
+
 				<div className="form-control">
 					<label htmlFor="address">Address</label>
 					<FastField name="address">
 						{(props) => {
-							console.log('Field Render');
+							console.log("Field Render");
 							// const { field, form, meta } = props;
 							// Fast Field helps you to prevevnt unneccessary renders
 							const { field, meta } = props;
@@ -108,6 +131,7 @@ function YoutubeForm() {
 							const { push, remove, form } = fieldArrayProps;
 							const { values } = form;
 							const { phNumbers } = values;
+							console.log("Form Errors", form.errors);
 							return (
 								<div>
 									{phNumbers.map((phNumber, index) => (
