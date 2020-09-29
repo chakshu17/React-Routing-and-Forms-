@@ -22,17 +22,19 @@ const initialValues = {
 	phoneNumbers: ["", ""],
 	phNumbers: [""],
 };
-const onSubmit = (value) => {
+const onSubmit = (value,onSubmitProps) => {
 	console.log("Form Data", value);
+	console.log('submit props',onSubmitProps);
+	onSubmitProps.setSubmitting(false)
 };
 
-const validateComments = (values) => {
-	let error;
-	if (!error) {
-		error = "Required";
-	}
-	return error;
-};
+// const validateComments = (values) => {
+// 	let error;
+// 	if (!error) {
+// 		error = "Required";
+// 	}
+// 	return error;
+// };
 
 const validationSchema = Yup.object({
 	name: Yup.string().required("Required !"),
@@ -49,6 +51,7 @@ function YoutubeForm() {
 			initialValues={initialValues}
 			validationSchema={validationSchema}
 			onSubmit={onSubmit}
+			// validateOnMount
 		>
 			{(formik) => {
 				console.log("formik Props", formik);
@@ -80,7 +83,7 @@ function YoutubeForm() {
 								as="textarea"
 								id="comment"
 								name="comments"
-								validate={validateComments}
+						
 							/>
 							<ErrorMessage name="comments" component={TextError} />
 						</div>
@@ -180,7 +183,10 @@ function YoutubeForm() {
 						})}>
 							Visit  Comments
 						</button>
-						<button type="submit">Submit</button>
+						{/*	<button type="submit" disabled={!(formik.isValid )} >Submit</button>
+				 use dirty when you know that user will enter value wich is never same as before , or else dirty prop will be problematic
+					It will disable the submit button when data is not new */}
+					<button type="submit" disabled={ !formik.isValid || formik.isSubmitting} >Submit</button>
 					</Form>
 				);
 			}}
