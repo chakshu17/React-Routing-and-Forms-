@@ -80,8 +80,8 @@ function FormikContainer() {
 						name="checkboxOptions"
 						options={checkboxOptions}
 					/> */}
-
-					<FormikControl control="date" name="birthDate" label="DOB" />
+{/* 
+					<FormikControl control="date" name="birthDate" label="DOB" /> */}
 
 					<button type="submit">Submit</button>
 				</Form>
