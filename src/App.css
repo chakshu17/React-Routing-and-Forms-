@@ -1,12 +1,23 @@
-.App {
+/* .App {
   margin-top: 20px;
   margin-left: 100px;
-}
+} */
 
 
-navBar{
+.navBar{
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 50px;
+    background-color: rgb(101, 101, 104);
+    color: white;
+}
+
+.nav-list{
+  width: 40%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style-type: none;
+
 }
