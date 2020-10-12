@@ -12,14 +12,15 @@ function ItemDetail(match) {
 		const fetchItem = await fetch(
 			`https://fortnite-api.theapinetwork.com/item/get?id=${match.match.params.id}`
 		);
-    const item = await fetchItem.json();
-    setItem(item)
+    const itemData = await fetchItem.json();
+    setItem(itemData)
     console.log(item);
+    console.log(itemData.data.item.name);
 	};
 
 	return (
 		<div>
-			<h1> {item.data.item.name} </h1>
+
 		</div>
 	);
 }
