@@ -1,15 +1,25 @@
-import React from 'react'
-import '../App.css'
+import React from "react";
+import { Link } from "react-router-dom";
+import "../App.css";
+
 function Nav() {
-  return (
-    <div className='navBar'>
-      <h3>Nav</h3>
-      <ul className='nav-list'>
-        <li>About</li>
-        <li>Shop</li>
-      </ul>
-    </div>
-  )
+	const navStyle = {
+		color: "white",
+  };
+  
+	return (
+		<div className="navBar">
+			<h3>Nav</h3>
+			<ul className="nav-list">
+				<Link style={navStyle} to="/about">
+					<li>About</li>
+				</Link>
+				<Link  style={navStyle} to="/shop">
+					<li>Shop</li>
+				</Link>
+			</ul>
+		</div>
+	);
 }
 
-export default Nav
+export default Nav;
